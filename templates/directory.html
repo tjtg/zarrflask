@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>{{ request.base_url }}</title>
+</head>
+<body>
+    <p>{{ request.url }}</p>
+    <p>
+    <a href="..">..</a><br />
+    {% for c in components %}
+        <a href="{{ request.url }}{{ c }}">{{ c }}</a><br />
+    {% endfor %}
+    </p>
+</body>
+</html>

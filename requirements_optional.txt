@@ -1,0 +1,4 @@
+dask[complete]==2.15.0
+fsspec==0.7.3
+requests==2.23.0
+zarr==2.4.0
