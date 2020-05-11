@@ -21,14 +21,18 @@ The underlying source for the xarray dataset being served is flexible - it could
 ## Usage
 
 Quick setup and demonstration using flask development server:
-
 ```sh
 git clone https://github.com/tjtg/zarrflask.git zarrflask
 cd zarrflask
 pip install -r requirements.txt
 flask run
-# then in another terminal
-python reader.py
+```
+
+To run the example xarray zarr client to retrieve some data from the flask app:
+```sh
+cd zarrflask
+pip install -r requirements_optional.txt
+python3 reader.py
 ```
 
 To serve your own data instead of the built-in example datasets, add your xarray dataset to the `dsets` dictionary in the `initialise` function in `data.py`.
@@ -68,7 +72,7 @@ Optional libraries for `reader.py` example:
 
 Useful, but not required:
 - netCDF4 - reading data from netCDF files
-- dask - parallel and lazy array loading and computation
+- dask - parallel and lazy array loading and computation, used for example arrays in `data.py`
 
 ## Known issues
 
