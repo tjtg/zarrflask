@@ -1,6 +1,7 @@
 """Flask app to serve xarray datasets as zarr"""
 
 import itertools
+import math
 import time
 
 from flask import Flask, abort, g, render_template
@@ -105,9 +106,12 @@ def dataset_var(dataset: str, var: str):
     var_shape = dsets[dataset][var].shape
     if var_shape == ():
         var_shape = (1,)
-    chunk_max = endec.max_chunk_size(dsets[dataset][var].shape)
-    number_of_chunks = [x // chunk_max for x in var_shape]
-    ranges = [range(x + 1) for x in number_of_chunks]
+    chunk_shape = endec.chunk_shape(var_shape)
+    number_of_chunks = [
+        int(math.ceil(var_dimlen / chunk_dimlen))
+        for var_dimlen, chunk_dimlen in zip(var_shape, chunk_shape)
+    ]
+    ranges = [range(n) for n in number_of_chunks]
     chunk_tuples = itertools.product(*ranges)
     for t in chunk_tuples:
         chunk_strs = [str(x) for x in t]
